@@ -1,0 +1,8 @@
+{
+  "name": "first-delegated-auth",
+  "description": "Demo app for First Delegated Auth",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "echo 'restarting'"
+  }
+}

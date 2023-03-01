@@ -1,0 +1,16 @@
+{
+  "name": "Minimalist Node.js app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": "",
+  "repository": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "pg": "^8.9.0",
+    "restify": "^11.1.0",
+    "xml2js": "^0.4.23"
+  },
+  "engines": {}
+}
