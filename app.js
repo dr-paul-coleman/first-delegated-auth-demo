@@ -59,7 +59,8 @@ function handleAuthQuery(request, response, next) {
         }
 
         const username = soapJson.Envelope.Body.Authenticate.username
-        const hash = crypto.createHash('sha256').update(soapJson.Envelope.Body.Authenticate.password).digest('hex')
+        const user_hash = crypto.createHash('sha256').update(username).digest('hex')
+        const passwd_hash = crypto.createHash('sha256').update(soapJson.Envelope.Body.Authenticate.password).digest('hex')
 
         sqlDB.connect( function (err) {
           if( err ) {
@@ -67,7 +68,7 @@ function handleAuthQuery(request, response, next) {
             return response.send(500, getAuthResultSOAP('false') )
           }
           console.log( 'SQL Database Connected. Querying for user ' + username )
-          sqlDB.query( "SELECT 'found' as isfound FROM users WHERE username = $1 and passwd_hash = $2 limit 1", [username, hash] )
+          sqlDB.query( "SELECT 'found' as isfound FROM users WHERE user_hash = $1 and passwd_hash = $2 limit 1", [user_hash, passwd_hash] )
               .then( (result) => {
                 const authResult = result.rowCount > 0 ? 'true' : 'false'
                 console.log( 'Matching user is ' + ( result.rowCount === 0 ? 'NOT ' : '' )+ 'found.' )
